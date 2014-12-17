@@ -158,11 +158,11 @@ public class SpotifyApi {
         mTokenStore.store(newToken);
     }
 
-    /* package */ ClientConfig getConfig() {
+    public ClientConfig getConfig() {
         return mConfig;
     }
 
-    /* package */ AccessTokenStore getTokenStore() {
+    public AccessTokenStore getTokenStore() {
         return mTokenStore;
     }
 
