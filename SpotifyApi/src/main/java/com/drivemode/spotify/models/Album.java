@@ -25,5 +25,7 @@ public class Album {
     @SerializedName("external_urls") public Map<String, String> externalUrls;
     @SerializedName("external_ids") public Map<String, String> externalIds;
     @SerializedName("release_date") public String releaseDate;
-    @SerializedName("release_date_precision") public String release_date_precision;
+    @SerializedName("release_date_precision") public String releaseDatePrecision;
+
+
 }
