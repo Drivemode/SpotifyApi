@@ -16,7 +16,6 @@ public class AccessTokenStore {
     private static final String KEY_RETRIEVED_AT = "spotify_token_retrieved_at";
     private static final String KEY_TOKEN_TYPE = "spotify_token_type";
     private final Application mApplication;
-    private AccessToken mAccessToken;
 
     public AccessTokenStore(Application application) {
         mApplication = application;
@@ -24,7 +23,6 @@ public class AccessTokenStore {
 
     @SuppressLint("CommitPrefEdits")
     public synchronized void store(AccessToken accessToken) {
-        mAccessToken = accessToken;
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(mApplication);
         pref.edit()
                 .putString(KEY_ACCESS_TOKEN, accessToken.accessToken)
@@ -40,12 +38,10 @@ public class AccessTokenStore {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(mApplication);
         pref.edit()
                 .putString(KEY_ACCESS_TOKEN, accessToken.accessToken)
-                .putString(KEY_REFRESH_TOKEN, mAccessToken.refreshToken)
                 .putString(KEY_TOKEN_TYPE, accessToken.tokenType)
                 .putLong(KEY_EXPIRES_IN, accessToken.expiresIn * 1000)
                 .putLong(KEY_RETRIEVED_AT, System.currentTimeMillis())
                 .commit();
-        mAccessToken = read();
     }
 
     public AccessToken read() {
@@ -56,13 +52,6 @@ public class AccessTokenStore {
         token.tokenType = pref.getString(KEY_TOKEN_TYPE, "Bearer");
         token.expiresIn = pref.getLong(KEY_EXPIRES_IN, 0);
         return token;
-    }
-
-    public synchronized AccessToken get() {
-        if (mAccessToken == null) {
-            mAccessToken = read();
-        }
-        return mAccessToken;
     }
 
     public boolean isExpired() {
