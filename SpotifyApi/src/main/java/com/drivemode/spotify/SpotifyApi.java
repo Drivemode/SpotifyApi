@@ -194,7 +194,7 @@ public class SpotifyApi {
         }
         AccessToken token = mTokenStore.read();
         AccessToken newToken = getAuthService().refreshAccessToken("refresh_token", token.refreshToken, mConfig.getClientId(), mConfig.getClientSecret());
-        mTokenStore.store(newToken);
+        mTokenStore.update(newToken);
     }
 
     public ClientConfig getConfig() {

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -13,7 +14,12 @@ import com.drivemode.spotify.Response;
 import com.drivemode.spotify.SpotifyApi;
 import com.drivemode.spotify.SpotifyLoader;
 import com.drivemode.spotify.SpotifyService;
+import com.drivemode.spotify.models.Pager;
+import com.drivemode.spotify.models.Playlist;
 import com.drivemode.spotify.models.User;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
 
 /**
  * @author KeishinYokomaku
@@ -56,12 +62,21 @@ public class MainActivity extends Activity implements SpotifyApi.AuthenticationL
     @Override
     public void onLoadFinished(Loader<Response<User>> loader, Response<User> data) {
         Toast.makeText(getApplicationContext(), "Logged in as " + data.getResult().id, Toast.LENGTH_SHORT).show();
+        SpotifyApi.getInstance().getApiService().getPlaylists(data.getResult().id, new Callback<Pager<Playlist>>() {
+            @Override
+            public void success(Pager<Playlist> playlistPager, retrofit.client.Response response) {
+                Log.v(TAG, "success");
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.v(TAG, "failed to load playlists: ", error);
+            }
+        });
     }
 
     @Override
-    public void onLoaderReset(Loader<Response<User>> loader) {
-
-    }
+    public void onLoaderReset(Loader<Response<User>> loader) {}
 
     static class SelfLoader extends SpotifyLoader<User> {
         public SelfLoader(Context context, SpotifyApi api) {
