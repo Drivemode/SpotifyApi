@@ -1,6 +1,10 @@
 SpotifyApi
 ==========
 
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-TypefaceHelper-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1440)
+[![License](http://img.shields.io/badge/License-Apache%202-brightgreen.svg?style=flat)](https://github.com/Drivemode/SpotifyApi/blob/master/LICENSE.md)
+[![Circle CI](https://circleci.com/gh/Drivemode/SpotifyApi/tree/master.svg?style=shield)](https://circleci.com/gh/Drivemode/SpotifyApi/tree/master)
+
 Spotify Web API Wrapper with Retrofit and OkClients just for Android.  
 This library includes authentication and account token management feature.
 
